@@ -34,12 +34,17 @@ export const App = () => {
   }, []);
 
   const [script, setScript] = useState([{ name: "happy" }]); // Ispravljen naziv state-a i setter funkcije
+  const [sime, setNew] = useState(0)
 
   const doSomething = () => {
     setScript(prevState => ([
       ...prevState,
       { name: "ad" }
     ]));
+  };
+
+  const increase = () => {
+    setNew(last => last + 1)
   };
 
   return (
@@ -52,6 +57,8 @@ export const App = () => {
       ))}
       <p>f{script[0].name}</p>
       <button onClick={doSomething}>Click me</button>
+
+      <button onClick={increase}>counter {sime}</button>
     </div>
   );
 }
