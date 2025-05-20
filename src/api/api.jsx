@@ -33,6 +33,22 @@ export const removeRole = async (userId, roleId) => {
   });
 };
 
+export const fetchReports = async () => {
+  const res = await axios.get(`${API_BASE}/report/`, {
+    withCredentials: true
+  });
+  return res.data;
+};
+
+export const updateReportStatus = async (reportId, status) => {
+  return axios.put(`${API_BASE}/report/${reportId}/status`, {
+    status
+  }, {
+    withCredentials: true
+  });
+};
+
+
 export const registerUser = async ({ username, email, password, file }) => {
   const formData = new FormData();
   formData.append('username', username);
