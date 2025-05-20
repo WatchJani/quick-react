@@ -26,6 +26,11 @@ export const addMaterial = async (formData) => {
   return res.data;
 };
 
+export const getCommentsByProject = async (projectId) => {
+  const res = await axios.get(`${API_BASE}/comment/${projectId}`);
+  return res.data.comments;
+};
+
 export const deleteMaterial = async (materialId) => {
   const res = await axios.delete(`${API_BASE}/material/${materialId}`);
   return res.data;

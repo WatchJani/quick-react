@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '../api/api';
+import CommentList from '../component/commentList'
 
 const Project = () => {
   const { id } = useParams();
@@ -72,6 +73,8 @@ const Project = () => {
           />
         ))}
       </div>
+
+      <CommentList projectId={id} />
     </div>
   );
 };
