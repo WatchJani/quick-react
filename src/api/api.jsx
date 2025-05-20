@@ -14,6 +14,30 @@ export const fetchRoles = async () => {
   return res.data;
 };
 
+export const fetchMaterials = async () => {
+  const res = await axios.get(`${API_BASE}/material`);
+  return res.data.materials;
+};
+
+export const addMaterial = async (formData) => {
+  const res = await axios.post(`${API_BASE}/material/add`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+  return res.data;
+};
+
+export const deleteMaterial = async (materialId) => {
+  const res = await axios.delete(`${API_BASE}/material/${materialId}`);
+  return res.data;
+};
+
+export const updateMaterial = async (materialId, formData) => {
+  const res = await axios.put(`${API_BASE}/material/${materialId}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+  return res.data;
+};
+
 export const assignRole = async (userId, roleId) => {
   return axios.post(`${API_BASE}/role/assign`, {
     user_id: userId,
@@ -48,6 +72,20 @@ export const updateReportStatus = async (reportId, status) => {
   });
 };
 
+
+export const searchProjects = async (filters = {}) => {
+  const res = await axios.post(`${API_BASE}/project/search`, filters, {
+    withCredentials: true,
+  });
+  return res.data.projects;
+};
+
+export const getProjectById = async (id) => {
+  const res = await axios.get(`${API_BASE}/project/${id}`, {
+    withCredentials: true,
+  });
+  return res.data;
+};
 
 export const registerUser = async ({ username, email, password, file }) => {
   const formData = new FormData();
