@@ -6,18 +6,22 @@ import RoleList from "./pages/role"
 import ReportList from "./pages/report"
 import Project from "./pages/project"
 import Material from "./pages/materials"
+import Layout from './component/layout';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/role" element={<RoleList />} />
-        <Route path="/report" element={<ReportList />} />
-        <Route path="/project/:id" element={<Project />} />
-        <Route path="/material" element={<Material />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/role" element={<RoleList />} />
+          <Route path="/report" element={<ReportList />} />
+          <Route path="/project/:id" element={<Project />} />
+          <Route path="/material" element={<Material />} />
+        </Route>
       </Routes>
     </Router>
   )
