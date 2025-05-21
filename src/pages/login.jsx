@@ -3,9 +3,13 @@ import { loginUser } from '../api/api';
 import { useAuth } from '../context/AuthContext';
 import Container from '../component/container'
 import './css/login.css'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { login } = useAuth();
+
+    const navigate = useNavigate();
+
 
     const [form, setForm] = useState({
         username: '',
@@ -28,6 +32,7 @@ const Login = () => {
                 login(res.data.user);
             }
             console.log('Login successful:', res.data);
+            navigate('/');
         } catch (err) {
             console.error('Login error:', err.response?.data || err.message);
         }

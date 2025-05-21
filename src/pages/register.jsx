@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { registerUser } from '../api/api';
+import Container from '../component/container'
+import './css/login.css'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [form, setForm] = useState({
         username: '',
         email: '',
@@ -22,19 +27,25 @@ const Register = () => {
         try {
             const res = await registerUser(form);
             console.log('Registration successful:', res);
+            navigate('/login');
         } catch (err) {
             console.error('Registration error:', err.response?.data || err.message);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-            <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-            <input type="file" name="file" accept="image/*" onChange={handleChange} required />
-            <button type="submit">Register</button>
-        </form>
+        <Container>
+            <div className='login-center'>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                    <h2>Register form</h2>
+                    <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                    <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                    <input type="file" name="file" accept="image/*" onChange={handleChange} required />
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </Container>
     );
 };
 
