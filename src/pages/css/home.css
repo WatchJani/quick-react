@@ -1,0 +1,97 @@
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-bar input[type="text"] {
+  padding: 8px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.filter-bar button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.filter-bar button:hover {
+  background-color: #0056b3;
+}
+
+.filters-box {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: #fafafa;
+}
+
+.filters-box > div {
+  margin-bottom: 10px;
+}
+
+.filters-box label {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.home-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.home-element {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgb(226, 226, 226);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-element img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.home-element h3 {
+  font-size: 18px;
+  margin: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.home-element p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.home-element p strong {
+  color: #222;
+}
+
+.card-container {
+  padding: 5px 20px;
+  display: flex;
+  gap: 15px;
+}

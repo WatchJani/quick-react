@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { searchProjects } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import Container from '../component/container'
+import './css/home.css'
 
 const CATEGORIES = ['woodworking', 'furniture', 'electronics'];
 const MATERIALS = ['pine', 'oak', 'metal'];
@@ -51,77 +52,80 @@ const ProjectList = () => {
     }, []);
 
     return (
-        <Container>
-            <div>
-                <h2>Projects</h2>
-
-                <div style={{ marginBottom: '10px' }}>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        value={searchText}
-                        onChange={e => setSearchText(e.target.value)}
-                    />
-                    <button onClick={() => setShowFilters(prev => !prev)}>Filters</button>
-                    <button onClick={applyFilters}>Apply</button>
-                </div>
-
-                {showFilters && (
-                    <div style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-                        <div>
-                            <label>Category:</label>
-                            <select value={category} onChange={e => setCategory(e.target.value)}>
-                                <option value="">All</option>
-                                {CATEGORIES.map(c => (
-                                    <option key={c} value={c}>{c}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div>
-                            <label>Difficulty:</label>
-                            <select value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-                                <option value="">All</option>
-                                {DIFFICULTIES.map(d => (
-                                    <option key={d} value={d}>{d}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div>
-                            <label>Material:</label>
-                            <select value={material} onChange={e => setMaterial(e.target.value)}>
-                                <option value="">All</option>
-                                {MATERIALS.map(m => (
-                                    <option key={m} value={m}>{m}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-                )}
-
-                {loading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <ul>
-                        {projects.map(project => (
-                            <li onClick={() => navigate(`/project/${project.project_id}`)} key={project.project_id}>
-                                <h3>{project.title}</h3>
-                                <img
-                                    src={`http://88.200.63.148:12345${project.thumbnail}`}
-                                    alt={project.title}
-                                />
-                                <p><strong>Description:</strong> {project.description}</p>
-                                <p><strong>Category:</strong> {project.category}</p>
-                                <p><strong>Difficulty:</strong> {project.difficulty}</p>
-                                <p><strong>Time:</strong> {project.time_requied} min</p>
-                                <p><strong>Published:</strong> {project.is_published ? 'Yes' : 'No'}</p>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+        <>
+            <div className="filter-bar">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchText}
+                    onChange={e => setSearchText(e.target.value)}
+                />
+                <button onClick={() => setShowFilters(prev => !prev)}>Filters</button>
+                <button onClick={applyFilters}>Apply</button>
             </div>
-        </Container>
+
+            {showFilters && (
+                <div className="filters-box">
+                    <div>
+                        <label>Category:</label>
+                        <select value={category} onChange={e => setCategory(e.target.value)}>
+                            <option value="">All</option>
+                            {CATEGORIES.map(c => (
+                                <option key={c} value={c}>{c}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Difficulty:</label>
+                        <select value={difficulty} onChange={e => setDifficulty(e.target.value)}>
+                            <option value="">All</option>
+                            {DIFFICULTIES.map(d => (
+                                <option key={d} value={d}>{d}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Material:</label>
+                        <select value={material} onChange={e => setMaterial(e.target.value)}>
+                            <option value="">All</option>
+                            {MATERIALS.map(m => (
+                                <option key={m} value={m}>{m}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            )}
+            <Container>
+
+
+                <div>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <ul className='home-list'>
+                            {projects.map(project => (
+                                <li className='home-element' onClick={() => navigate(`/project/${project.project_id}`)} key={project.project_id}>
+                                    <h3>{project.title}</h3>
+                                    <img
+                                        src={`http://88.200.63.148:12345${project.thumbnail}`}
+                                        alt={project.title}
+                                    />
+                                    <div className='card-container'>
+                                        {/* <p><strong>Description:</strong> {project.description}</p> */}
+                                        <p><strong>Category:</strong> {project.category}</p>
+                                        <p><strong>Difficulty:</strong> {project.difficulty}</p>
+                                        <p><strong>Time:</strong> {project.time_requied} min</p>
+                                        {/* <p><strong>Published:</strong> {project.is_published ? 'Yes' : 'No'}</p> */}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </Container>
+        </>
     );
 };
 
