@@ -8,8 +8,6 @@ const CATEGORIES = ['woodworking', 'furniture', 'electronics'];
 const MATERIALS = ['pine', 'oak', 'metal'];
 const DIFFICULTIES = ['easy', 'medium', 'hard'];
 
-
-
 const ProjectList = () => {
     const navigate = useNavigate();
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { loginUser } from '../api/api';
 import { useAuth } from '../context/AuthContext';
+import Container from '../component/container'
+import './css/login.css'
 
 const Login = () => {
     const { login } = useAuth();
@@ -32,25 +34,31 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={form.username}
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                required
-            />
-            <button type="submit">Login</button>
-        </form>
+        <Container>
+            <div className='login-center'>
+                <form onSubmit={handleSubmit}>
+                    <h2 className=''>Login form</h2>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={form.username}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </Container>
     );
 };
 
