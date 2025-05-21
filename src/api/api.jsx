@@ -108,3 +108,17 @@ export const loginUser = (credentials) => {
   return axios.post(`${API_BASE}/user/login`, credentials, { withCredentials: true }
   );
 };
+
+export const createComment = async ({ content, project_id }) => {
+  const res = await axios.post(`${API_BASE}/comment`, { content, project_id }, { withCredentials: true });
+  return res.data;
+};
+
+export const deleteComment = async (id) => {
+  await axios.delete(`${API_BASE}/comment/${id}`, { withCredentials: true });
+};
+
+export const updateComment = async (id, data) => {
+  const res = await axios.put(`${API_BASE}/comment/${id}`, data, { withCredentials: true });
+  return res.data;
+};

@@ -36,7 +36,7 @@ const Register = () => {
     return (
         <Container>
             <div className='login-center'>
-                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <form className='register-form' onSubmit={handleSubmit} encType="multipart/form-data">
                     <h2>Register form</h2>
                     <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />

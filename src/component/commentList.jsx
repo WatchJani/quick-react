@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { getCommentsByProject } from '../api/api';
-import CommentItem from './comment';
+import { useAuth } from '../context/AuthContext';
+import { createComment, deleteComment, updateComment, getCommentsByProject } from '../api/api';
+import { useState, useEffect } from 'react';
+import Comment from './comment';
+import './css/comment.css';
+
 
 const CommentList = ({ projectId }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newComment, setNewComment] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadComments = async () => {
@@ -21,15 +26,94 @@ const CommentList = ({ projectId }) => {
     if (projectId) loadComments();
   }, [projectId]);
 
-  if (loading) return <p>Loading comments...</p>;
-  if (comments.length === 0) return <p>No comments for this project.</p>;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+
+    try {
+      console.log({ content: newComment, project_id: projectId })
+      const res = await createComment({ content: newComment, project_id: projectId });
+
+      const enrichedComment = {
+        ...res,
+        username: user.username,
+        profile_picture: user.profile_picture,
+        user_id: user.user_id,
+        content: newComment,
+        created_at: new Date().toISOString()
+      };
+
+      setComments(prev => [enrichedComment, ...prev]);
+      setNewComment('');
+    } catch (err) {
+      console.error('Error submitting comment:', err);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteComment(id);
+      setComments(prev => prev.filter(c => c.comment_id !== id));
+    } catch (err) {
+      console.error('Error deleting comment:', err);
+    }
+  };
+
+  const handleUpdate = async (id, updatedText) => {
+    try {
+      const res = await updateComment(id, { content: updatedText });
+
+      const enrichedUpdate = {
+        ...res,
+        username: user.username,
+        profile_picture: user.profile_picture,
+        user_id: user.user_id,
+        content: updatedText,
+        created_at: new Date().toISOString()
+      };
+
+      setComments(prev =>
+        prev.map(c => (c.comment_id === id ? enrichedUpdate : c))
+      );
+    } catch (err) {
+      console.error('Error updating comment:', err);
+    }
+  };
+
+  const isAdmin = user?.roles?.some(role => role.name === 'admin');
 
   return (
-    <div>
+    <div className="comment-wrapper">
       <h3>Comments</h3>
-      {comments.map((comment) => (
-        <CommentItem key={comment.comment_id} comment={comment} />
-      ))}
+
+      {user && (
+        <form className="comment-form" onSubmit={handleSubmit}>
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Write your comment..."
+            required
+          />
+          <button type="submit">Post Comment</button>
+        </form>
+      )}
+
+      {loading ? (
+        <p>Loading comments...</p>
+      ) : comments.length === 0 ? (
+        <p>No comments for this project.</p>
+      ) : (
+        comments.map((comment) => (
+          <Comment
+            key={comment.comment_id}
+            comment={comment}
+            currentUser={user}
+            isAdmin={isAdmin}
+            onDelete={handleDelete}
+            onUpdate={handleUpdate}
+          />
+        ))
+      )}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const NavigationBar = () => {
 
         try {
             const data = await searchProjects(filters);
-            navigate('/', { state: { projects: data } }); // <-- šalješ na Home
+            navigate('/', { state: { projects: data } });
         } catch (err) {
             console.error('Search failed:', err);
         }

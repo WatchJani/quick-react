@@ -41,7 +41,7 @@ const Login = () => {
     return (
         <Container>
             <div className='login-center'>
-                <form onSubmit={handleSubmit}>
+                <form className='register-form' onSubmit={handleSubmit}>
                     <h2 className=''>Login form</h2>
 
                     <input
