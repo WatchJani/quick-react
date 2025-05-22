@@ -103,6 +103,43 @@ export const registerUser = async ({ username, email, password, file }) => {
   return response.data;
 };
 
+export const createProject = async (projectData) => {
+  const formData = new FormData();
+
+  formData.append('title', projectData.title);
+  formData.append('description', projectData.description);
+  formData.append('category', projectData.category);
+  formData.append('difficulty', projectData.difficulty);
+  formData.append('time_required', projectData.time_required);
+  formData.append('is_published', projectData.is_published);
+  formData.append('instruction', projectData.instruction);
+
+  formData.append('materials', JSON.stringify(
+    projectData.materials.map(({ id, quantity }) => ({ id, quantity }))
+  ));
+
+  formData.append('thumbnail', projectData.thumbnail);
+
+  projectData.images.forEach((image) => {
+    formData.append('images', image);
+  });
+
+  const response = await axios.post(`${API_BASE}/project`, formData, { withCredentials: true });
+  return response.data;
+};
+
+export const searchMaterials = async (name = '') => {
+  try {
+    const res = await axios.get(`${API_BASE}/material/search`, {
+      params: { name }
+    });
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching materials:', error);
+    return [];
+  }
+};
+
 export const loginUser = (credentials) => {
   console.log(credentials)
   return axios.post(`${API_BASE}/user/login`, credentials, { withCredentials: true }

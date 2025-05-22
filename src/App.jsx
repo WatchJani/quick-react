@@ -6,6 +6,7 @@ import RoleList from "./pages/role"
 import ReportList from "./pages/report"
 import Project from "./pages/project"
 import Material from "./pages/materials"
+import AddProject from "./pages/newProject"
 import Layout from './component/layout';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/report" element={<ReportList />} />
           <Route path="/project/:id" element={<Project />} />
           <Route path="/material" element={<Material />} />
+          <Route path="/new" element={<AddProject />} />
         </Route>
       </Routes>
     </Router>
