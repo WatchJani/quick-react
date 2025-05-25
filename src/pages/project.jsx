@@ -223,7 +223,7 @@ const Project = () => {
           <h3>Project Images</h3>
           <div className="gallery-slider">
             {images.map((img, i) => (
-              <img key={i} src={`http://88.200.63.148:12345${img.path}`} alt={`Project img ${i + 1}`} />
+              <img key={i} src={`http://88.200.63.148:12345${img}`} alt={`Project img ${i + 1}`} />
             ))}
           </div>
         </div>
