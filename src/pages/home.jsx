@@ -98,7 +98,7 @@ const ProjectList = () => {
                                     </div>
                                 </div>
                                 <div onClick={() => navigate(`/project/${project.project_id}`)}>
-                                    <img src={`http://88.200.63.148:12345${project.thumbnail}`} alt={project.title} />
+                                    <img className='thumbnail' src={`http://88.200.63.148:12345${project.thumbnail}`} alt={project.title} />
                                     <div className="card-container">
                                         <p><strong>Category:</strong> {project.category}</p>
                                         <p><strong>Difficulty:</strong> {project.difficulty}</p>
