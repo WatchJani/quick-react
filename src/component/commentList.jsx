@@ -31,16 +31,15 @@ const CommentList = ({ projectId }) => {
     if (!newComment.trim()) return;
 
     try {
-      console.log({ content: newComment, project_id: projectId })
       const res = await createComment({ content: newComment, project_id: projectId });
 
       const enrichedComment = {
-        ...res,
+        comment_id: res.commentId,
         username: user.username,
         profile_picture: user.profile_picture,
         user_id: user.user_id,
         content: newComment,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
       };
 
       setComments(prev => [enrichedComment, ...prev]);
@@ -61,15 +60,15 @@ const CommentList = ({ projectId }) => {
 
   const handleUpdate = async (id, updatedText) => {
     try {
-      const res = await updateComment(id, { content: updatedText });
+      await updateComment(id, { content: updatedText });
 
       const enrichedUpdate = {
-        ...res,
+        comment_id: id,
         username: user.username,
         profile_picture: user.profile_picture,
         user_id: user.user_id,
         content: updatedText,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
       };
 
       setComments(prev =>
