@@ -1,59 +1,10 @@
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  background-color: #f1f1f1;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.filter-bar input[type="text"] {
-  padding: 8px;
-  font-size: 14px;
-  flex: 1;
-  min-width: 180px;
-}
-
-.filter-bar button {
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #007bff;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-
-.filter-bar button:hover {
-  background-color: #0056b3;
-}
-
-.filters-box {
-  border: 1px solid #ccc;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  background-color: #fafafa;
-}
-
-.filters-box > div {
-  margin-bottom: 10px;
-}
-
-.filters-box label {
-  margin-right: 8px;
-  font-weight: 500;
-}
-
 .home-list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
   margin-top: 16px;
+  padding: 0;
 }
 
 .home-element {
@@ -61,38 +12,142 @@
   border-radius: 12px;
   border: 1px solid rgb(226, 226, 226);
   overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.home-element:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  padding-bottom: 0;
+}
+
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 18px;
   cursor: pointer;
+}
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 5;
   display: flex;
   flex-direction: column;
 }
 
-.home-element img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-bottom: 1px solid #eee;
-}
-
-.home-element h3 {
-  font-size: 18px;
-  margin: 16px;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.home-element p {
+.menu-dropdown button {
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
   font-size: 14px;
-  color: #555;
-  margin: 5px 0;
 }
 
-.home-element p strong {
-  color: #222;
+.menu-dropdown button:hover {
+  background-color: #f3f3f3;
 }
 
 .card-container {
-  padding: 5px 20px;
+  padding: 12px 16px 16px 16px;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 5px;
 }
 
+.home-element img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top: 1px solid #eee;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.modal textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.modal select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.modal-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+}
+
+.modal-actions button:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #0056b3;
+}

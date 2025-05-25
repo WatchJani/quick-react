@@ -36,6 +36,22 @@ export const deleteMaterial = async (materialId) => {
   return res.data;
 };
 
+export const deleteProject = async (projectId) => {
+  console.log(projectId)
+  const res = await axios.delete(`${API_BASE}/project/${projectId}`, {
+    withCredentials: true,
+  });
+  return res.data;
+};
+
+export const reportProject = async (reportData) => {
+  console.log(reportData)
+  const res = await axios.post(`${API_BASE}/report`, reportData, {
+    withCredentials: true,
+  });
+  return res.data;
+};
+
 export const updateMaterial = async (materialId, formData) => {
   const res = await axios.put(`${API_BASE}/material/${materialId}`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
