@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRoles, assignRole, removeRole } from '../api/api';
+import "./css/roles.css"
+import Container from '../component/container'
 
 const ALL_ROLES = [
     { id: 1, name: 'admin' },
@@ -41,6 +43,7 @@ const RoleList = () => {
         if (!roleId) return;
 
         try {
+            console.log(userId, roleId)
             await removeRole(userId, roleId);
             await loadUsers();
         } catch (err) {
@@ -55,19 +58,18 @@ const RoleList = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div>
+        <Container>
             <h2>Users and Role Management</h2>
             <ul>
                 {users.map(user => {
                     const userRoleNames = user.roles.map(r => r.name);
-
                     const availableRolesToAdd = ALL_ROLES.filter(role => !userRoleNames.includes(role.name));
                     const availableRolesToRemove = ALL_ROLES.filter(role =>
                         role.name !== 'user' && userRoleNames.includes(role.name)
                     );
 
                     return (
-                        <li key={user.user_id}>
+                        <div key={user.user_id} className="role-user">
                             <strong>{user.username}</strong>
 
                             <div>
@@ -99,11 +101,11 @@ const RoleList = () => {
                                 </select>
                                 <button onClick={() => handleRemoveRole(user.user_id)}>Delete</button>
                             </div>
-                        </li>
+                        </div>
                     );
                 })}
             </ul>
-        </div>
+        </Container>
     );
 };
 

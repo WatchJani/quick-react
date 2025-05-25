@@ -69,7 +69,7 @@ export const assignRole = async (userId, roleId) => {
 };
 
 export const removeRole = async (userId, roleId) => {
-  return axios.delete(`${API_BASE}/role/assign`, {
+  return axios.delete(`${API_BASE}/role`, {
     data: {
       user_id: userId,
       role_id: roleId,
