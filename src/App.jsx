@@ -8,6 +8,7 @@ import Project from "./pages/project"
 import Material from "./pages/materials"
 import AddProject from "./pages/newProject"
 import Layout from './component/layout';
+import Edit from './pages/edit';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/project/:id" element={<Project />} />
           <Route path="/material" element={<Material />} />
           <Route path="/new" element={<AddProject />} />
+          <Route path="/edit/:id" element={<Edit />} />
         </Route>
       </Routes>
     </Router>

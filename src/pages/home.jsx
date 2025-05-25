@@ -88,7 +88,10 @@ const ProjectList = () => {
                                         {menuOpenId === project.project_id && (
                                             <div className="menu-dropdown">
                                                 {user && (
-                                                    <button onClick={() => openReportModal(project.project_id)}>Report</button>
+                                                    <>
+                                                        <button onClick={() => navigate(`/edit/${project.project_id}`)}>Edit</button>
+                                                        <button onClick={() => openReportModal(project.project_id)}>Report</button>
+                                                    </>
                                                 )}
                                                 {(isAdminOrMod || isOwner) && (
                                                     <button onClick={() => handleDelete(project.project_id)}>Delete</button>

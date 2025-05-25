@@ -112,7 +112,7 @@ const NavigationBar = () => {
                                 borderRadius: '6px',
                                 fontWeight: 'bold',
                                 cursor: 'pointer'
-                            }}  onClick={() => navigate('/register')}>Register</button>
+                            }} onClick={() => navigate('/register')}>Register</button>
                         </>
                     ) : (
                         <>
@@ -150,6 +150,16 @@ const NavigationBar = () => {
                                     }} onClick={() => navigate('/report')}>Reports</button>
                                 </>
                             )}
+                            <button style={{
+                                alignSelf: 'flex-end',
+                                padding: '8px 16px',
+                                backgroundColor: '#0a7cff',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '6px',
+                                fontWeight: 'bold',
+                                cursor: 'pointer'
+                            }} onClick={() => navigate('/new')}>new</button>
                             <img
                                 src={`http://88.200.63.148:12345/${user.profile_picture}`}
                                 alt="Avatar"
