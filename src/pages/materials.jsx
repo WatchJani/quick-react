@@ -13,6 +13,7 @@ const Materials = () => {
     const [newMaterial, setNewMaterial] = useState({});
     const [editingId, setEditingId] = useState(null);
     const [editValues, setEditValues] = useState({});
+    const [fileInputKey, setFileInputKey] = useState(Date.now());
 
     useEffect(() => {
         loadMaterials();
@@ -39,6 +40,7 @@ const Materials = () => {
         });
         await addMaterial(formData);
         setNewMaterial({});
+        setFileInputKey(Date.now());
         await loadMaterials();
     };
 
@@ -69,18 +71,57 @@ const Materials = () => {
                 <h2>Materials Management</h2>
 
                 <form onSubmit={handleAdd} className="materials-form">
-                    <input type="text" name="name" placeholder="Name" onChange={(e) => handleInputChange(e, setNewMaterial)} />
-                    <input type="text" name="category" placeholder="Category" onChange={(e) => handleInputChange(e, setNewMaterial)} />
-                    <input type="text" name="unit" placeholder="Unit" onChange={(e) => handleInputChange(e, setNewMaterial)} />
-                    <input type="text" name="description" placeholder="Description" onChange={(e) => handleInputChange(e, setNewMaterial)} />
-                    <input type="file" name="file" onChange={(e) => handleInputChange(e, setNewMaterial)} />
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        value={newMaterial.name || ''}
+                        onChange={(e) => handleInputChange(e, setNewMaterial)}
+                    />
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Category"
+                        value={newMaterial.category || ''}
+                        onChange={(e) => handleInputChange(e, setNewMaterial)}
+                    />
+                    <input
+                        type="text"
+                        name="unit"
+                        placeholder="Unit"
+                        value={newMaterial.unit || ''}
+                        onChange={(e) => handleInputChange(e, setNewMaterial)}
+                    />
+                    <input
+                        type="text"
+                        name="description"
+                        placeholder="Description"
+                        value={newMaterial.description || ''}
+                        onChange={(e) => handleInputChange(e, setNewMaterial)}
+                    />
+                    <input
+                        key={fileInputKey}
+                        type="file"
+                        name="file"
+                        onChange={(e) => handleInputChange(e, setNewMaterial)}
+                    />
                     <label>
                         Eco:
-                        <input type="checkbox" name="is_ecologically" onChange={(e) => handleInputChange(e, setNewMaterial)} />
+                        <input
+                            type="checkbox"
+                            name="is_ecologically"
+                            checked={newMaterial.is_ecologically || false}
+                            onChange={(e) => handleInputChange(e, setNewMaterial)}
+                        />
                     </label>
                     <label>
                         Sensitive:
-                        <input type="checkbox" name="is_sensitive" onChange={(e) => handleInputChange(e, setNewMaterial)} />
+                        <input
+                            type="checkbox"
+                            name="is_sensitive"
+                            checked={newMaterial.is_sensitive || false}
+                            onChange={(e) => handleInputChange(e, setNewMaterial)}
+                        />
                     </label>
                     <button type="submit">Add Material</button>
                 </form>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { loginUser } from '../api/api';
 import { useAuth } from '../context/AuthContext';
-import Container from '../component/container'
 import './css/login.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -39,7 +38,6 @@ const Login = () => {
     };
 
     return (
-        <Container>
             <div className='login-center'>
                 <form className='register-form' onSubmit={handleSubmit}>
                     <h2 className=''>Login form</h2>
@@ -63,7 +61,6 @@ const Login = () => {
                     <button type="submit">Login</button>
                 </form>
             </div>
-        </Container>
     );
 };
 

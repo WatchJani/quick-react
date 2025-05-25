@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { registerUser } from '../api/api';
-import Container from '../component/container'
 import './css/login.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +33,6 @@ const Register = () => {
     };
 
     return (
-        <Container>
             <div className='login-center'>
                 <form className='register-form' onSubmit={handleSubmit} encType="multipart/form-data">
                     <h2>Register form</h2>
@@ -45,7 +43,6 @@ const Register = () => {
                     <button type="submit">Register</button>
                 </form>
             </div>
-        </Container>
     );
 };
 
