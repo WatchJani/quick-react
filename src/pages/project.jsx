@@ -3,11 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProjectById, deleteProject, reportProject } from '../api/api';
 import CommentList from '../component/commentList';
 import Container from '../component/container';
+import { useAuth } from '../context/AuthContext';  // <-- Import useAuth
 import './css/project.css';
 
 const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();  // <-- Dohvati korisnika iz konteksta
 
   const [project, setProject] = useState(null);
   const [materials, setMaterials] = useState([]);
@@ -34,6 +36,12 @@ const Project = () => {
 
     fetchProject();
   }, [id]);
+
+  // Definicija prava pristupa
+  const isOwner = user && project && user.user_id === project.user_id;
+  const isAdmin = user && user.roles?.some(role => role.name === 'admin');
+  const canEditOrDelete = isAdmin || isOwner;
+  const canReport = !!user;
 
   const handleDelete = async () => {
     try {
@@ -83,41 +91,56 @@ const Project = () => {
           </div>
           <h2 className="banner-title">{project.title}</h2>
 
-          <div style={{ marginTop: 10, width: '227px', display: 'flex', justifyContent: 'space-between' }}>
-            <button onClick={() => navigate(`/edit/${id}`)} style={{
-              alignSelf: 'flex-end',
-              padding: '8px 16px',
-              backgroundColor: 'rgb(35 124 0)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>
-              Edit
-            </button>
-            <button onClick={handleDelete} style={{
-              alignSelf: 'flex-end',
-              padding: '8px 16px',
-              backgroundColor: 'rgb(219 0 0)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }}>
-              Delete
-            </button>
-            <button style={{
-              alignSelf: 'flex-end',
-              padding: '8px 16px',
-              backgroundColor: '#0a7cff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              fontWeight: 'bold',
-              cursor: 'pointer'
-            }} onClick={() => setShowReportModal(true)}>Report</button>
+          {/* Prikaz dugmadi prema pravima pristupa */}
+          <div style={{ marginTop: 10, display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            {canEditOrDelete && (
+              <>
+                <button
+                  onClick={() => navigate(`/edit/${id}`)}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: 'rgb(35 124 0)',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: 'rgb(219 0 0)',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Delete
+                </button>
+              </>
+            )}
+            {canReport && (
+              <button
+                onClick={() => setShowReportModal(true)}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#0a7cff',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer'
+                }}
+              >
+                Report
+              </button>
+            )}
           </div>
         </div>
 
@@ -200,12 +223,14 @@ const Project = () => {
           <h3>Project Images</h3>
           <div className="gallery-slider">
             {images.map((img, i) => (
-              <img key={i} src={`http://88.200.63.148:12345${img}`} alt={`project-img-${i}`} />
+              <img key={i} src={`http://88.200.63.148:12345${img.path}`} alt={`Project img ${i + 1}`} />
             ))}
           </div>
         </div>
 
-        <CommentList projectId={id} />
+        <div className="comments-section">
+          <CommentList projectId={id} />
+        </div>
       </div>
     </Container>
   );

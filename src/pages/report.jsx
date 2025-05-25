@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { fetchReports, updateReportStatus } from '../api/api';
+import "./css/report.css"
+import Container from '../component/container'
+
 
 const ReportList = () => {
     const [reports, setReports] = useState([]);
@@ -32,30 +35,32 @@ const ReportList = () => {
     if (loading) return <p>Loading reports...</p>;
 
     return (
-        <div>
+        <Container>
             <h2>Reports Management</h2>
             {reports.length === 0 ? (
-                <p>No pending reports.</p>
+                <p className="no-reports">No pending reports.</p>
             ) : (
-                <ul>
+                <ul className="report-list">
                     {reports.map(report => (
-                        <li key={report.report_id}>
+                        <li key={report.report_id} className="report-item">
                             <p><strong>Type:</strong> {report.type}</p>
                             <p><strong>Reason:</strong> {report.reason}</p>
                             <p><strong>Date:</strong> {new Date(report.date_reported).toLocaleString()}</p>
-                            <p><strong>Status:</strong> {report.status}</p>
+                            <p><strong>Status:</strong> <span className={`status ${report.status}`}>{report.status}</span></p>
 
-                            <button onClick={() => handleStatusChange(report.report_id, 'approved')}>
-                                Approve
-                            </button>
-                            <button onClick={() => handleStatusChange(report.report_id, 'rejected')}>
-                                Reject
-                            </button>
+                            <div className="report-actions">
+                                <button className="btn-approve" onClick={() => handleStatusChange(report.report_id, 'approved')}>
+                                    Approve
+                                </button>
+                                <button className="btn-reject" onClick={() => handleStatusChange(report.report_id, 'rejected')}>
+                                    Reject
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
             )}
-        </div>
+        </Container>
     );
 };
 

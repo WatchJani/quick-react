@@ -50,7 +50,7 @@ const NavigationBar = () => {
                     flexWrap: 'wrap',
                 }}
             >
-                <div>
+                <div style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
                     GreenCycle
                 </div>
 

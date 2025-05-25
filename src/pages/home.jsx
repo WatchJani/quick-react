@@ -89,18 +89,20 @@ const ProjectList = () => {
                                             <div className="menu-dropdown">
                                                 {user && (
                                                     <>
-                                                        <button onClick={() => navigate(`/edit/${project.project_id}`)}>Edit</button>
                                                         <button onClick={() => openReportModal(project.project_id)}>Report</button>
                                                     </>
                                                 )}
                                                 {(isAdminOrMod || isOwner) && (
-                                                    <button onClick={() => handleDelete(project.project_id)}>Delete</button>
+                                                    <>
+                                                        <button onClick={() => navigate(`/edit/${project.project_id}`)}>Edit</button>
+                                                        <button onClick={() => handleDelete(project.project_id)}>Delete</button>
+                                                    </>
                                                 )}
                                             </div>
                                         )}
                                     </div>
                                 </div>
-                                <div onClick={() => navigate(`/project/${project.project_id}`)}>
+                                <div style={{ cursor: 'pointer' }} onClick={() => navigate(`/project/${project.project_id}`)}>
                                     <img className='thumbnail' src={`http://88.200.63.148:12345${project.thumbnail}`} alt={project.title} />
                                     <div className="card-container">
                                         <p><strong>Category:</strong> {project.category}</p>
