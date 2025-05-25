@@ -49,7 +49,6 @@ const Project = () => {
       await reportProject({ project_id: id, ...reportData });
       setShowReportModal(false);
       setReportData({ type: 'Spam', reason: '' });
-      alert('Report sent');
     } catch (err) {
       console.error('Report failed:', err);
     }
@@ -84,14 +83,41 @@ const Project = () => {
           </div>
           <h2 className="banner-title">{project.title}</h2>
 
-          <div style={{ marginTop: 10 }}>
-            <button onClick={() => navigate(`/edit/${id}`)} style={{ marginRight: 10 }}>
+          <div style={{ marginTop: 10, width: '227px', display: 'flex', justifyContent: 'space-between' }}>
+            <button onClick={() => navigate(`/edit/${id}`)} style={{
+              alignSelf: 'flex-end',
+              padding: '8px 16px',
+              backgroundColor: 'rgb(35 124 0)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}>
               Edit
             </button>
-            <button onClick={handleDelete} style={{ marginRight: 10 }}>
+            <button onClick={handleDelete} style={{
+              alignSelf: 'flex-end',
+              padding: '8px 16px',
+              backgroundColor: 'rgb(219 0 0)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}>
               Delete
             </button>
-            <button onClick={() => setShowReportModal(true)}>Report</button>
+            <button style={{
+              alignSelf: 'flex-end',
+              padding: '8px 16px',
+              backgroundColor: '#0a7cff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }} onClick={() => setShowReportModal(true)}>Report</button>
           </div>
         </div>
 

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createProject, searchMaterials } from '../api/api';
 import './css/new.css';
+import { useNavigate } from 'react-router-dom';
 
 const AddProject = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -83,15 +86,18 @@ const AddProject = () => {
       quantity,
     }));
 
-    console.log(materialsPayload)
-
     const payload = {
       ...form,
       materials: materialsPayload,
     };
 
     try {
-      await createProject(payload);
+      const response = await createProject(payload);
+
+      if (response && response.project_id) {
+        navigate(`/project/${response.project_id}`);
+      } else {
+      }
     } catch (err) {
       console.error(err);
     }
@@ -120,7 +126,7 @@ const AddProject = () => {
 
         <label className='checkbox '>
           <input className='box' type="checkbox" name="is_published" checked={form.is_published} onChange={handleChange} />
-          <p className='published'>Published</p> 
+          <p className='published'>Published</p>
         </label>
 
         <label>Thumbnail:</label>

@@ -120,7 +120,7 @@ const EditProject = () => {
 
         try {
             await updateProject(id, payload);
-            navigate(`/project/${id}`);  // redirect on success
+            navigate(`/project/${id}`);
         } catch (err) {
             console.error('Failed to update project', err);
         }
