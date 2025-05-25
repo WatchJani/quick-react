@@ -189,6 +189,10 @@ export const loginUser = (credentials) => {
   );
 };
 
+export const logoutUser = () => {
+  return axios.get(`${API_BASE}/user/logout`, { withCredentials: true });
+};
+
 export const createComment = async ({ content, project_id }) => {
   const res = await axios.post(`${API_BASE}/comment`, { content, project_id }, { withCredentials: true });
   return res.data;
